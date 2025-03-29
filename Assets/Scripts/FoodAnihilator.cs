@@ -22,7 +22,7 @@ public class FoodAnihilator : MonoBehaviour
         if (food != null)
         {
             food.Dropped();
-            food.Disabled();
+            food.ResetFood();
         }
     }
 }

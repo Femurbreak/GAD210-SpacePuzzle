@@ -6,18 +6,28 @@ public class Food : MonoBehaviour
 {
     public GameObject gameObjectBeingMoved;
     public float TimeScaler = 0.85f;
-    public bool ObjectPickedUp = false;
+    private bool ObjectPickedUp = false;
     public Rigidbody rb;
+    public GameObject FoodSpawner;
+    public bool PickItUp = false;
+    public bool redFood;
+    public bool blueFood;
+    public bool greenFood;
 
     // Start is called before the first frame update
     void Start()
     {
-        gameObject.SetActive(false);
+        
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (PickItUp)
+        {
+            Pickup();
+            PickItUp=false;
+        }
         if (ObjectPickedUp)
         {
             gameObject.transform.position = Vector3.Lerp(gameObjectBeingMoved.transform.position, transform.position, TimeScaler);
@@ -36,13 +46,8 @@ public class Food : MonoBehaviour
         rb.useGravity = true;
     }
 
-    public void Disabled()
+    public void ResetFood()
     {
-        gameObject.SetActive(false);
-    }
-
-    public void Enabled()
-    {
-        gameObject.SetActive(true);
+        gameObject.transform.position = FoodSpawner.transform.position;
     }
 }

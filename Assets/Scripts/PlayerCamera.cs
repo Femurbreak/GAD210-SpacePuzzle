@@ -21,6 +21,7 @@ public class PlayerCamera : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        print("Welcome to the Space Puzzle prototype in it's... current state. Controls: E - Used to interact with the coloured cubes. Deliver those cubes to the purple table to 'score' points.");
     }
 
     private void Update()
@@ -37,5 +38,25 @@ public class PlayerCamera : MonoBehaviour
 
         transform.rotation = Quaternion.Euler(rotationX, rotationY, 0);
         orientation.rotation = Quaternion.Euler(0, rotationY, 0);
+
+        if(Input.GetKeyDown("e"))
+        {
+            Interact();
+        }
+
+       
+    }
+
+    public void Interact()
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit))
+        {
+            Food food = hit.transform.GetComponent<Food>();
+            if (food != null)
+            {
+                food.Pickup();
+            }
+        }
     }
 }
